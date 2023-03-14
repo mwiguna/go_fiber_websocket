@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WS Fiber</title>
+    
+    <script>
+        window.onload = function () {
+            var conn;
+
+            //  Listener
+            if (window["WebSocket"]) {
+                console.log("Listen");
+                conn = new WebSocket("ws://" + document.location.host + "/ws");
+                
+                conn.onclose = function (event) {
+                    console.log("closed");
+                };
+
+                conn.onmessage = function (event) {
+                    var messages = event.data.split('\n');
+                    console.log(messages);
+                };
+            } else console.log("Broswer doesn't support ws");
+
+            // Send
+            
+            document.getElementById("button").onclick = function(){
+                conn.send(document.getElementById("msg").value);
+            }
+        };
+    </script>
+</head>
+<body>
+
+    <input type="text" id="msg"/>
+    <button id="button">Send</button>
+
+</body>
+</html>
