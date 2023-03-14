@@ -39,7 +39,9 @@ func main() {
 				break
 			} else {
 				log.Printf("receive: %s", msg)
-				specificClients["10"] = &specificClient{
+
+				// Add some condition here, and save ID for specific Client
+				specificClients["10"] = &specificClient{ // 10 is example id, send from client
 					connection: c,
 				}
 			}
@@ -58,7 +60,7 @@ func sendSpecific(msg []byte) {
 			c.mu.Lock()
 			defer c.mu.Unlock()
 			if ID != string(msg[:]) {
-				log.Printf("Bukan user tujuan")
+				log.Printf("ID User is not listed")
 				return
 			}
 
